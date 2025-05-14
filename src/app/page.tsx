@@ -1,103 +1,146 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Card } from "@/components/ui/card";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+const sponsors = {
+  gold: [
+    "Nest Property Group",
+    "CJ Gravel & RediMix",
+    "Rodgers Racing"
+  ],
+  silver: [
+    "Animas Auto Spa",
+    "Diversified Roofing",
+    "Aztec Motocross"
+  ],
+  bronze: [
+    "Format Moto",
+    "Bank of the San Juans",
+    "GrassBurger",
+    "Williams Funeral Home and Crematorium",
+    "Moriarty MX/HeartBar MX"
+  ]
+};
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export default function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen flex flex-col bg-black text-white font-oswald">
+      {/* NAVBAR */}
+      <nav className="flex justify-between items-center px-6 py-4 bg-[#6c757d]">
+        <div className="w-32 h-auto">
+          <Image src="/images/d2xlogo.png" alt="D2X Logo" width={128} height={64} priority />
         </div>
+        <div className="hidden md:flex gap-6 text-white text-lg">
+          {['Training', 'Sponsors', 'Rider', 'Contact'].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="hover:text-kawasaki-green hover:underline transition"
+            >
+              {item}
+            </a>
+          ))}
+        </div>
+        <button
+          className="md:hidden text-white"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
+      </nav>
+
+      {/* GREEN BORDER UNDER NAVBAR */}
+      <div className="h-1 bg-[#28a745]"></div>
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: 'auto' }}
+            exit={{ height: 0 }}
+            className="md:hidden bg-zinc-900 overflow-hidden"
+          >
+            <div className="flex flex-col px-6 py-2 gap-3">
+              {['Training', 'Sponsors', 'Rider', 'Contact'].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="hover:text-kawasaki-green hover:underline"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* MAIN SECTION */}
+      <main className="flex-1 p-6 space-y-8">
+        <section className="text-center">
+          <h1 className="text-4xl font-bold text-kawasaki-green">Welcome to MX Training</h1>
+          <p className="mt-2 text-lg">Motocross coaching, sponsor promotion, and elite rider development</p>
+          <p className="mt-4 text-xl font-semibold text-yellow-400">
+            Proudly Sponsored by Nest Property Group
+          </p>
+        </section>
+
+        {/* SPONSOR CARD */}
+        <Card className="p-6 bg-zinc-800 text-white shadow-xl max-w-xl mx-auto">
+          <h2 className="text-2xl font-bold mb-2">Become a Sponsor</h2>
+          <p className="mb-4">Support the next generation of motocross talent and grow your brand with us!</p>
+          <button className="bg-kawasaki-green px-4 py-2 rounded text-black font-semibold">
+            Contact Us
+          </button>
+        </Card>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* FOOTER */}
+      <footer className="bg-zinc-900 py-4 text-center overflow-hidden relative border-t border-zinc-700">
+        <div className="text-lg font-bold mb-1 text-kawasaki-green">Our Sponsors</div>
+        <div className="animate-scroll whitespace-nowrap flex flex-col gap-2">
+          <div className="flex gap-8 justify-center text-yellow-400 text-xl">
+            {sponsors.gold.map((name) => (
+              <div key={name} className="min-w-max">{name}</div>
+            ))}
+          </div>
+          <div className="flex gap-6 justify-center text-silver text-base">
+            {sponsors.silver.map((name) => (
+              <div key={name} className="min-w-max">{name}</div>
+            ))}
+          </div>
+          <div className="flex gap-4 justify-center text-bronze text-sm">
+            {sponsors.bronze.map((name) => (
+              <div key={name} className="min-w-max">{name}</div>
+            ))}
+          </div>
+        </div>
       </footer>
+
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400&display=swap');
+
+        .text-kawasaki-green { color: #8cc63f; }
+        .bg-kawasaki-green { background-color: #8cc63f; }
+        .text-silver { color: #c0c0c0; }
+        .text-bronze { color: #cd7f32; }
+        .animate-scroll {
+          animation: scroll 30s linear infinite;
+        }
+        @keyframes scroll {
+          0% { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+        .font-oswald {
+          font-family: 'Oswald', sans-serif;
+        }
+      `}</style>
     </div>
   );
 }
