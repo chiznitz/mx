@@ -36,13 +36,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Link>
         </div>
         <div className="hidden md:flex gap-6 text-white text-lg">
-          {['Training', 'Sponsors', 'Rider', 'Contact'].map((item) => (
+          {[
+            { label: 'Meet the Team', href: '/team' },
+            { label: 'Sponsors', href: '/sponsors' },
+            { label: 'Training', href: '/training' },
+            { label: 'Contact', href: '/contact' }
+          ].map((item) => (
             <Link
-              key={item}
-              href={`/${item.toLowerCase()}`}
+              key={item.label}
+              href={item.href}
               className="hover:text-kawasaki-green hover:underline transition"
             >
-              {item}
+              {item.label}
             </Link>
           ))}
         </div>
@@ -67,13 +72,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             className="md:hidden bg-zinc-900 overflow-hidden"
           >
             <div className="flex flex-col px-6 py-2 gap-3">
-              {['Training', 'Sponsors', 'Rider', 'Contact'].map((item) => (
+              {[
+                { label: 'Meet the Team', href: '/team' },
+                { label: 'Sponsors', href: '/sponsors' },
+                { label: 'Training', href: '/training' },
+                { label: 'Contact', href: '/contact' }
+              ].map((item) => (
                 <Link
-                  key={item}
-                  href={`/${item.toLowerCase()}`}
+                  key={item.label}
+                  href={item.href}
                   className="hover:text-kawasaki-green hover:underline"
                 >
-                  {item}
+                  {item.label}
                 </Link>
               ))}
             </div>

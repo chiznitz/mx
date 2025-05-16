@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "D2X Motocross",
-  description: "Motocross training and sponsorship site",
+  description: "Motocross team and sponsorship site",
 };
 
 import Layout from "@/components/Layout";
